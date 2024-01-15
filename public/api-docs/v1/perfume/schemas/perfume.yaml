@@ -1,0 +1,87 @@
+Perfume:
+  allOf:
+    - $ref: '#/PerfumeReadonlyProperties'
+    - $ref: '#/PerfumeFillableProperties'
+
+PerfumeFillableProperties:
+  type: object
+  properties:
+    id:
+      type: integer
+      description: Идентификатор
+      example: 1
+    name:
+      type: string
+      description: Название позиции
+      example: Name
+    price:
+      type: integer
+      description: Цена (в копейках)
+      example: 10000
+
+PerfumeReadonlyProperties:
+  type: object
+  properties:
+    created_at:
+      type: string
+      format: date-time
+      description: Дата создания
+      example: "2021-06-11T11:27:10.000000Z"
+    updated_at:
+      type: string
+      format: date-time
+      description: Дата обновления
+      example: "2021-06-11T11:27:10.000000Z"
+  required:
+    - id
+    - created_at
+    - updated_at
+
+PerfumeRequiredProperties:
+  type: object
+  required:
+    - name
+    - price
+
+SearchPerfumeRequest:
+  type: object
+  properties:
+    sort:
+      $ref: '../../common_schemas.yaml#/RequestBodySort'
+    filter:
+      type: object
+    pagination:
+      $ref: '../../common_schemas.yaml#/RequestBodyPagination'
+
+SearchPerfumeResponse:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        $ref: '#/Perfume'
+    meta:
+      type: object
+      properties:
+        pagination:
+          $ref: '../../common_schemas.yaml#/ResponseBodyPagination'
+  required:
+    - data
+    - meta
+
+PerfumeResponse:
+  type: object
+  properties:
+    data:
+      $ref: '#/Perfume'
+  required:
+    - data
+
+PatchPerfumeRequest:
+  allOf:
+    - $ref: '#/PerfumeFillableProperties'
+
+CreatePerfumeRequest:
+  allOf:
+    - $ref: '#/PerfumeFillableProperties'
+    - $ref: '#/PerfumeRequiredProperties'

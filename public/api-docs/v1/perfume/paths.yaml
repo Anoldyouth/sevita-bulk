@@ -1,0 +1,130 @@
+Perfume:
+  post:
+    tags:
+      - perfume
+    operationId: createPerfume
+    summary: Создание записи о парфюме
+    description:
+      Метод для создания записи о парфюме
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/perfume.yaml#/CreatePerfumeRequest'
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/perfume.yaml#/PerfumeResponse'
+      "400":
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'
+
+PerfumeOne:
+  get:
+    tags:
+      - perfume
+    operationId: getPerfume
+    summary: Получение записи о парфюме
+    description: Метод получения записи о парфюме
+    parameters:
+      - $ref: '#/PathId'
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/perfume.yaml#/PerfumeResponse'
+      "400":
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      "404":
+        $ref: '../index.yaml#/components/responses/NotFound'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'
+  delete:
+    tags:
+      - perfume
+    operationId: deletePerfume
+    summary: Удаление записи о парфюме
+    description: Метод удаления записи о парфюме
+    parameters:
+      - $ref: '#/PathId'
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: '../index.yaml#/components/schemas/EmptyDataResponse'
+      "400":
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      "404":
+        $ref: '../index.yaml#/components/responses/NotFound'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'
+  patch:
+    tags:
+      - perfume
+    operationId: patchPerfume
+    x-lg-handler: 'App\Http\ApiV1\Perfume\Controllers\PerfumeController@patch'
+    summary: Редактирование записи о парфюме
+    description: Метод редактирования записи о парфюме
+    parameters:
+      - $ref: '#/PathId'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/perfume.yaml#/PatchPerfumeRequest'
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/perfume.yaml#/PerfumeResponse'
+      "400":
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      "404":
+        $ref: '../index.yaml#/components/responses/NotFound'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'
+PerfumeSearch:
+  post:
+    tags:
+      - perfume
+    operationId: searchPerfume
+    summary: Поиск записей о парфюме
+    description: Метод поиска записей о парфюме
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/perfume.yaml#/SearchEmergencyStubsRequest'
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/perfume.yaml#/SearchPerfumeResponse'
+      "400":
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'
+
+PathId:
+  in: path
+  name: id
+  required: true
+  schema:
+    type: integer
+    minimum: 1
+  description: Числовой id
+  example: 1

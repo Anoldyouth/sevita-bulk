@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Sevita Bulk
+  contact:
+    name: API Author
+    email: anoldyouth@yandex.ru
+  version: 1.0.0
+  description: Sevita Bulk
+servers:
+  - url: /api/v1
+tags:
+  - name: perfume
+    description: Управление парфюмом
+paths:
+  # perfume
+  /perfume:
+    $ref: './perfume/paths.yaml#/Perfume'
+  /perfume/{id}:
+    $ref: './perfume/paths.yaml#/PerfumeOne'
+  /perfume:search:
+    $ref: './perfume/paths.yaml#/PerfumeSearch'
+
+components:
+  parameters:
+    QueryInclude:
+      $ref: './common_parameters.yaml#/QueryInclude'
+    PathId:
+      $ref: './common_parameters.yaml#/PathId'
+  schemas:
+    EmptyDataResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          nullable: true
+          example: null
+        meta:
+          type: object
+      required:
+        - data
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'
+    EmptyResponse:
+      description: Успех
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EmptyDataResponse'
