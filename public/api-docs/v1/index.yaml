@@ -13,10 +13,6 @@ tags:
     description: Управление парфюмом
 paths:
   # perfume
-  /perfume:
-    $ref: './perfume/paths.yaml#/Perfume'
-  /perfume/{id}:
-    $ref: './perfume/paths.yaml#/PerfumeOne'
   /perfume:search:
     $ref: './perfume/paths.yaml#/PerfumeSearch'
 
