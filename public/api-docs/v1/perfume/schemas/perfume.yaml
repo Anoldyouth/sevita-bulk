@@ -8,11 +8,11 @@ PerfumeFillableProperties:
   properties:
     id:
       type: integer
-      description: Идентификатор
+      description: Код парфюма
       example: 1
     name:
       type: string
-      description: Название позиции
+      description: Название
       example: Name
     price:
       type: integer

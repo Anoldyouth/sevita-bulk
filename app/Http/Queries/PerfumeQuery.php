@@ -2,7 +2,6 @@
 
 namespace App\Http\Queries;
 
-
 use App\Models\Perfume;
 use Spatie\QueryBuilder\QueryBuilder;
 
